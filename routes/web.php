@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('admin/home', function() {
+    return view('admin.home');
+});
+
+Route::get('admin/products/create', 'ProductController@create');
+Route::post('/admin/products', 'ProductController@store');
+Route::get('/admin/products', 'ProductController@index');
+
