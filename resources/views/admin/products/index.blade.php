@@ -17,24 +17,30 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Date Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($products as $product)                
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td>{{ $product->title }}</td>
-                        <td>{{ $product->updated_at->toFormattedDateString() }}</td>
-                    </tr>
-                    @endforeach                    
-                </tbody>
-            </table>
+            @if(!count($products))          
+                <div class="callout callout-warning">
+                    <h4>{{ __('There is no products yet.') }}</h4>    
+                </div>
+            @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Date Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($products as $product)                
+                        <tr>
+                            <td>{{ $product->id }}</td>
+                            <td>{{ $product->title }}</td>
+                            <td>{{ $product->updated_at->toFormattedDateString() }}</td>
+                        </tr>
+                        @endforeach                    
+                    </tbody>
+                </table>
+            @endif
         </section>
         <!-- /.content -->
     </div>

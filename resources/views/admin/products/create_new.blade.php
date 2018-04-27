@@ -24,15 +24,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Displaying form errors -->
-                @if(count($errors))
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                @include('components.errors')
             </div> 
             <!-- /. Form Errors -->
                         
