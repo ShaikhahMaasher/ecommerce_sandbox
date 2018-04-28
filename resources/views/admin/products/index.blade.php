@@ -25,17 +25,25 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Date Updated</th>
+                            <th>{{ __('ID') }}</th>
+                            <th>{{ __('Title') }}</th>
+                            <th>{{ __('Date Updated') }}</th>
+                            <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($products as $product)                
                         <tr>
-                            <td>{{ $product->id }}</td>
-                            <td>{{ $product->title }}</td>
+                            <td><a href="/admin/products/{{$product->id}}/edit">{{ $product->id }}</a></td>
+                            <td><a href="/admin/products/{{$product->id}}/edit">{{ $product->title }}</a></td>
                             <td>{{ $product->updated_at->toFormattedDateString() }}</td>
+                            <td>
+                                <form method="POST" action="/admin/products/{{$product->id}}">
+                                    {{ method_field("DELETE") }}
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach                    
                     </tbody>

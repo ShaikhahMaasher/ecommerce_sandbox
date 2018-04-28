@@ -41,21 +41,20 @@ class ProductController extends Controller
 
     // GET /products/id/edit
     public function edit($id) {
-        
-    }
-
-    // GET /products/id
-    public function show($id) {
-        
+        $product = Product::findOrFail($id);
+        return view('/admin.products.edit', compact('product'));
     }
 
     // PATCH /products/id
     public function update($id) {
-
+        $product = Product::findOrFail($id);
+        $product->update(request(['title', 'description']));
+        return back();
     }
 
     // DELETE /products/id
     public function destroy($id) {
-        
+        Product::where('id', $id)->delete();
+        return redirect('/admin/products');
     }
 }
