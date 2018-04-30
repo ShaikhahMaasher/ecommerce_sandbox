@@ -62,12 +62,24 @@
                 <!-- /. col-md-9 -->
 
                 <div class="col-md-3">
-                    <div class="box-footer" style="text-align: center">                     
+                    <div class="box-footer" style="text-align: center">  
+                        <a href="{{ route('product.delete', $product->id) }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('delete-form').submit();">
+                            <button class="btn btn-danger">{{ __('Delete') }}</button>
+                        </a>                    
                         <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                     </div>
                     <!-- /.box-footer --> 
                 </div>                                        
-            </form>            
+            </form>   
+
+            <!-- Delete form to handle delete product request -->
+            <form id="delete-form" method="POST" action="{{ route('product.delete', $product->id) }}" style="display: none;">
+                {{ method_field("DELETE") }}
+                @csrf
+            </form>
+
         </div>  
         <!-- /. row -->
     </section>
