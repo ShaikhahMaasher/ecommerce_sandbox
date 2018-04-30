@@ -1,4 +1,4 @@
-@extends('layouts.backend.master') 
+@extends('layouts.backend.dashboard') 
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -62,7 +62,7 @@
                 <!-- /. col-md-9 -->
 
                 <div class="col-md-3">
-                    <div class="box-footer" style="text-align: center">  
+                    <div class="box-footer" style="text-align: center"> 
                         <a href="{{ route('product.delete', $product->id) }}"
                             onclick="event.preventDefault();
                                         document.getElementById('delete-form').submit();">
@@ -72,14 +72,12 @@
                     </div>
                     <!-- /.box-footer --> 
                 </div>                                        
-            </form>   
-
-            <!-- Delete form to handle delete product request -->
+            </form> 
+            
             <form id="delete-form" method="POST" action="{{ route('product.delete', $product->id) }}" style="display: none;">
                 {{ method_field("DELETE") }}
                 @csrf
             </form>
-
         </div>  
         <!-- /. row -->
     </section>
