@@ -23,6 +23,11 @@ Route::get('admin/home', function() {
     return view('admin.home');
 });
 
+
+Route::get('admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+Route::get('/admin/home', 'Admin\AdminController@index')->name('admin.home');
+Route::get('admin', 'Admin\LoginController@showLoginForm')->name('admin.login.show');
+
 Route::get('admin/products/create', 'ProductController@create');
 Route::post('/admin/products', 'ProductController@store');
 Route::get('/admin/products', 'ProductController@index');
