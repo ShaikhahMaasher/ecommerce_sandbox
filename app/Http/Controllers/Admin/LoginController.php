@@ -37,7 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin.login');
+        $this->middleware('guest');
     }
 
     /**
