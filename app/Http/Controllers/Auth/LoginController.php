@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;  
+use App\Http\Traits\RedirectTrait;
 
 class LoginController extends Controller
 {
@@ -18,7 +20,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, RedirectTrait;
 
     /**
      * Where to redirect users after login.
@@ -35,5 +37,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Override authenticated method to customize login redirection for multi authentication.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     *
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        return $this->RedirectBasedOnRole($request, $user);
     }
 }
