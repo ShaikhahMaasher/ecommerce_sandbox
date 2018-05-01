@@ -34,4 +34,9 @@ Route::get('/admin/products', 'ProductController@index');
 Route::get('/admin/products/{id}/edit', 'ProductController@edit');
 Route::patch('/admin/products/{id}', 'ProductController@update');
 Route::delete('/admin/products/{id}', 'ProductController@destroy')->name('product.delete');
+//-----------shop Route -------------
+Route::get('shop', function () {
+    return view('shop.index');
+});
+
 
