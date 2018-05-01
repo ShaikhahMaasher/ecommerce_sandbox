@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Product;
 
 class ProductController extends Controller
 {
+    public function __construct() 
+    {
+        $this->Middleware(['auth', 'admin']);
+    }
     // GET /products
     public function index() {
         $products = Product::all();
@@ -26,13 +31,7 @@ class ProductController extends Controller
             'title' => 'required|min:2',
             'description' => 'required'
         ]);
-        // Create a new product and save data from the request 
-        // Product::create([
-        //     'title' => request('title'),
-        //     'description' => request('description')
-        // ]);
 
-        // OR
         Product::create(request(['title', 'description']));
 
         // Redirect to admin product page

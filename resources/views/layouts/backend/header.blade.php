@@ -128,8 +128,8 @@
             <img src="{{ asset('images/admin/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
             <p>
-                Shaikhah Maasher - Administrator               
-                <small>Member since April 2018</small>
+                {{ Auth::user()->name }} - {{ Auth::user()->role->title }}
+                <small>Member since {{ Auth::user()->created_at->toFormattedDateString() }}</small>
             </p>
             </li>                
             <!-- Menu Footer-->
