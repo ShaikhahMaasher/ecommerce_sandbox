@@ -39,4 +39,12 @@ Route::get('shop', function () {
     return view('shop.index');
 });
 
-
+Route::prefix('category')->group(function () {
+    //------------Chid Categories Routes-------
+     Route::get('/','CategoryController@index')->name('category');
+     Route::get('/create','CategoryController@create');      
+     Route::post('/store','CategoryController@store');
+     //------------Parent Categories Routes-------
+     Route::get('/create-parent','ParentCategoryController@create');
+     Route::post('/store-parent','ParentCategoryController@store');
+ });

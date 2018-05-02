@@ -41,7 +41,7 @@
                                   <div class="row">
                                       <div class="price col-md-6">
                                           <h5>
-                                              Grouped Product</h5>
+                                              Grouped Product 555</h5>
                                           <h5 class="price-text-color">
                                               $249.99</h5>
                                       </div>
