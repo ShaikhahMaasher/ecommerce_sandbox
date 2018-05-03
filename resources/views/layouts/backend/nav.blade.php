@@ -40,8 +40,8 @@
         <ul class="treeview-menu">
             <li><a href="/admin/products">All Products</a></li>
             <li><a href="/admin/products/create">Add New</a></li>
-            <li><a href="#">Categories</a></li>            
-            <li><a href="#">Attributes</a></li>                            
+            <li><a href="/admin/category">All Categories</a></li>            
+            <li><a href="/admin/category/create">Add new Category</a></li>                            
         </ul>
     </li>
 

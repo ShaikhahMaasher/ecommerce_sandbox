@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Cviebrock\EloquentSluggable\Sluggable;
 
@@ -11,8 +10,8 @@ class Category extends Model
 {  
     //To call sluggable method
     use Sluggable;
-    protected $fillable = ['name', 'desc','parent_category_id','slug'];
-          /**
+    use SoftDeletes;
+    /**
      * Return the sluggable configuration array for this model.
      *
      */

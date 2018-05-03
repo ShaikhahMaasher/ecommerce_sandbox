@@ -39,12 +39,17 @@ Route::get('shop', function () {
     return view('shop.index');
 });
 
-Route::prefix('category')->group(function () {
+Route::prefix('admin/category')->group(function () {
     //------------Chid Categories Routes-------
-     Route::get('/','CategoryController@index')->name('category');
+     Route::get('/','CategoryController@index')->name('admin.category');
      Route::get('/create','CategoryController@create');      
      Route::post('/store','CategoryController@store');
+     Route::get('/edit/{slug}','CategoryController@edit');
+     Route::post('/update/{slug}','CategoryController@update');
+     Route::get('/delete/{slug}','CategoryController@destroy');
      //------------Parent Categories Routes-------
      Route::get('/create-parent','ParentCategoryController@create');
      Route::post('/store-parent','ParentCategoryController@store');
+     Route::get('/edit-parent/{id}','ParentCategoryController@edit');
+     Route::post('/update-parent/{id}','ParentCategoryController@update');
  });

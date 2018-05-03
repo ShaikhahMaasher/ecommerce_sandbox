@@ -43,7 +43,7 @@ class ParentCategoryController extends Controller
             'name'=>'required'
         ]);
         ParentCategory::create(['name'=>$request->name,'desc'=>$request->desc]);
-        return redirect('category');
+        return redirect('admin/category');
     }
 
     /**
@@ -63,9 +63,10 @@ class ParentCategoryController extends Controller
      * @param  \App\ParentCategory  $parentCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(ParentCategory  $parentCategory)
+    public function edit($id)
     {
-       
+        $parent=ParentCategory::find($id);
+        return view('admin.categories.edit-parent',compact('parent'));
 
     }
 
@@ -76,9 +77,11 @@ class ParentCategoryController extends Controller
      * @param  \App\ParentCategory  $parentCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,ParentCategory  $parentCategory)
+    public function update(Request $request,$id)
     {
-      
+        $parent=ParentCategory::find($id);
+        $parent->update(['name'=>$request->name,'desc'=>$request->desc]);
+        return redirect('admin/category');
     }
 
     /**

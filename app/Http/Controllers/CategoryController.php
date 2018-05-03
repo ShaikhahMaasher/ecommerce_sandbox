@@ -45,7 +45,7 @@ class CategoryController extends Controller
         ]);
         
         Category::create(['name'=>$request->name,'desc'=>$request->desc,'parent_category_id'=>$request->parent_categories_id,'slug'=>$request->slug]);
-        return redirect('category');
+        return redirect('admin/category');
     }
 
     /**
@@ -60,37 +60,42 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     *Get category/edit/{slug}
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category  $category)
+    public function edit($slug)
     {
-       
+        $parentsCategory=ParentCategory::all();
+        $category=Category::where('slug', $slug)->first();
+        return view('admin.categories.edit',compact('category','parentsCategory'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
+     * Post category/update/{slug}
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category  $category)
-    {
-       
-    }
+     public function update(Request $request, $slug)
+     {
+         $category=Category::where('slug', $slug)->first();
+         $category->update(['name'=>$request->name,'desc'=>$request->desc,'parent_category_id'=>$request->parent_categories_id,'slug'=>$request->slug]);
+         return redirect('admin/category');
+     }
 
     /**
      * Remove the specified resource from storage.
-     *
+     * Get category/delete/{slug}
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category  $category)
-    {
-        
-    }
+     public function destroy($slug)
+     {
+         Category::where('slug', $slug)->delete();
+         return redirect('admin/category');
+     }
 
 }
