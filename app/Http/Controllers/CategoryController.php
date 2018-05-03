@@ -97,5 +97,15 @@ class CategoryController extends Controller
          Category::where('slug', $slug)->delete();
          return redirect('admin/category');
      }
+     //Get category/status-show/{slug}
+     public function showCategory($slug){
+        Category::where('slug', $slug)->where('status','0')->update(['status'=>1]);
+        return redirect('admin/category');
+    }
+      //Get category/status-hide/{slug}
+    public function hideCategory($slug){
+        Category::where('slug', $slug)->where('status','1')->update(['status'=>0]);
+        return redirect('admin/category');
+    }
 
 }

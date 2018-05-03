@@ -47,6 +47,8 @@ Route::prefix('admin/category')->group(function () {
      Route::get('/edit/{slug}','CategoryController@edit');
      Route::post('/update/{slug}','CategoryController@update');
      Route::get('/delete/{slug}','CategoryController@destroy');
+     Route::get('/status-show/{slug}','CategoryController@showCategory');
+     Route::get('/status-hide/{slug}','CategoryController@hideCategory');
      //------------Parent Categories Routes-------
      Route::get('/create-parent','ParentCategoryController@create');
      Route::post('/store-parent','ParentCategoryController@store');

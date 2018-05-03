@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParentCategoriesTable extends Migration
+class AddStatusColumnToCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateParentCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('parent_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->text('desc')->nullable();
-            $table->timestamps();
+        Schema::table('categories', function (Blueprint $table) {
+           $table->char('status', 4)->default(1);
         });
     }
-   
+
     /**
      * Reverse the migrations.
      *
@@ -28,6 +25,8 @@ class CreateParentCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parent_categories');
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 }

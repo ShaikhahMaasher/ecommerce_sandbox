@@ -73,6 +73,21 @@
 									<span class="glyphicon glyphicon-trash"></span>
 								</button>
 							</a>
+                            @if($child->status=='0')
+                                <a class='col-sm-3' href="/admin/category/status-show/{{$child->slug}}"> 
+                                    <button type="button" class="btn btn-danager">Show
+                                    <span class="glyphicon glyphicon-eye-open">
+                                    </span>
+                                    </button>
+                                </a>
+                                @else
+                                <a class='col-sm-3' href="/admin/category/status-hide/{{$child->slug}}"> 
+                                    <button type="button" class="btn btn-danager">Hide
+                                    <span class="glyphicon glyphicon-eye-close">
+                                    </span>
+                                    </button>
+                                </a>
+                                @endif
 						</td>
 					</tr>
                   @endforeach
