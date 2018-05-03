@@ -107,5 +107,15 @@ class CategoryController extends Controller
         Category::where('slug', $slug)->where('status','1')->update(['status'=>0]);
         return redirect('admin/category');
     }
+    //Get category/trashed
+    public function readTrashed(){
+        $categories=Category::onlyTrashed()->get();
+        return view('admin.categories.trashed',compact('categories'));
+    }
+    //Get category/restore/{slug}
+    public function restore($slug){
+        Category::withTrashed()->where('slug',$slug)->restore();
+        return redirect('admin/category');
+    }
 
 }

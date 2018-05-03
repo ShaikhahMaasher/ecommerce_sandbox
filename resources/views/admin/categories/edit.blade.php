@@ -80,7 +80,9 @@
 						<div class="col-md-3">
 							<div class="box-footer" style="text-align: center">
 								<div class="form-group">
-								<a href="/admin/category/delete/{$category->slug}}">
+								<a href=action="{{ route('category.delete', $category->slug) }}"
+									onclick="event.preventDefault();
+                                  document.getElementById('delete-form').submit();">
                             <button class="btn btn-danger">{{ __('Delete') }}</button>
                         </a> 
 									<button type="submit" class="btn btn-primary">Update</button>
@@ -89,6 +91,10 @@
 							<!-- /.box-footer -->
 						</div>
 					</form>
+					<form id="delete-form" method="POST" action="{{ route('category.delete', $category->slug) }}" style="display: none;">
+                {{ method_field("DELETE") }}
+                @csrf
+            </form>
 				</div>
 				<!-- /. row -->
 			</section>

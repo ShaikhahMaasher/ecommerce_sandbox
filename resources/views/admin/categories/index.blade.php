@@ -24,16 +24,22 @@
 			<div class="col-sm-6">
 				<a class='col-sm-4' href="/admin/category/create">
 					<button type="button" class="btn btn-primary btn-sm">
-                                    Add new Category
-                                    </button>
+                        Add new Category
+                    </button>
 				</a>
 				<a class='col-sm-4' href="/admin/category/create-parent">
 					<button type="button" class="btn btn-primary btn-sm">
-                                    Add new Parent Category
-                                    </button>
+                        Add new Parent Category
+                    </button>
 				</a>
+                <a class='col-sm-4' href="/admin/category/trashed"> 
+                    <button type="button" class="btn btn-warning btn-sm">
+                        All trashed Categories
+                    </button>
+                  </a>
 			</div>
 		</div>
+        
 		<br>
                @if(!count($parentsCategory))          
                         
