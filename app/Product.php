@@ -9,4 +9,9 @@ class Product extends Model
 
     // Guarded
     // protected $guarded = [];
+
+    public function getStatusAttribute($value)
+    {
+        return ucwords($value);
+    }
 }

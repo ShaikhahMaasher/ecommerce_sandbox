@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Product;
 
 class ProductController extends Controller
@@ -20,19 +21,25 @@ class ProductController extends Controller
 
     // GET /products/create
     public function create() {
-        return view('/admin.products.create_new');
+        return view('/admin.products.create');
     }
 
     // POST /products
-    public function store() {
-        // Validate data
-        // dd(request()->all());
-        $this->validate(request(), [
-            'title' => 'required|min:2',
-            'description' => 'required'
-        ]);
+    public function store(ProductRequest $request) {
 
-        Product::create(request(['title', 'description']));
+        Product::create( request(
+            [
+                'title', 
+                'short_description', 
+                'description', 
+                'regular_price', 
+                'sale_price', 
+                'sku', 
+                'in_stock', 
+                ($request->in_stock == 1)? 'stock_number':'', 
+                'weight',
+            ])
+        );
 
         // Redirect to admin product page
         return redirect('/admin/products');
@@ -45,9 +52,22 @@ class ProductController extends Controller
     }
 
     // PATCH /products/id
-    public function update($id) {
+    public function update($id, ProductRequest $request) {
         $product = Product::findOrFail($id);
-        $product->update(request(['title', 'description']));
+        // return dd($request->description);
+        $product->update(request(
+            [
+                'title', 
+                'short_description', 
+                'description', 
+                'regular_price', 
+                'sale_price', 
+                'sku', 
+                'in_stock', 
+                ($request->in_stock == 1)? 'stock_number':'', 
+                'weight',
+            ])
+        );
         return back();
     }
 

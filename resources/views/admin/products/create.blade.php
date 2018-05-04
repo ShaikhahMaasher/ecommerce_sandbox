@@ -6,15 +6,15 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{ __('Edit Product') }}
-            <small>{{ __('Update products') }}</small>
+            {{ __('Add Product') }}
+            <small>{{ __('To create a new product') }}</small>
         </h1>
         <ol class="breadcrumb">
             <li>
                 <a href="#">
                     <i class="fa fa-cubes"></i> {{ __('Products') }}</a>
             </li>
-            <li class="active">{{ __('Edit Product') }}</li>
+            <li class="active">{{ __('Add Product') }}</li>
         </ol>
     </section>
     <!-- /. content-header -->
@@ -28,14 +28,13 @@
             </div> 
             <!-- /. Form Errors -->
                         
-            <form method="POST" action="/admin/products/{{$product->id}}" class="form-horizontal">
-                {{ method_field("PATCH") }}
+            <form method="POST" action="/admin/products" class="form-horizontal">
                 @csrf
                 <section class="col-md-9">
                     <div class="box box-primary">              
                         <div class="box-header with-border">
                             <h4>
-                                {{ __('Update a product') }}
+                                {{ __('Create a new product') }}
                             </h4>
                         </div>   
                         <!-- /. box-header -->
@@ -43,7 +42,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Product Title" value="{{ $product->title }}">
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" placeholder="Product Title" >
                                 </div>
                             </div>
                             <!-- /. title -->
@@ -51,24 +50,24 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <label for="short_description" class="control-label">{{ __('Short Description')}}</label>                                 
-                                    <textarea id="short_description" name="short_description" class="form-control" rows="3" placeholder="Enter a short description of the product...">{{ $product->short_description }}</textarea>
+                                    <textarea id="short_description" name="short_description" class="form-control" rows="3" placeholder="Enter a short description of the product..."></textarea>
                                 </div>
                             </div>
                             <!-- /. short description -->                             
 
                             <div class="form-group">
                                 <div class="pad col-sm-12">
-                                    <textarea id="description" name="description" rows="10" cols="80" value="{{ $product->description }}" placeholder="Here is to add a full description of the product...">{{$product->description}}</textarea>
-                                </div>  
-                            </div>  
+                                    <textarea id="description" name="description" rows="10" cols="80" placeholder="Here is to add a full description of the product..."></textarea>
+                                </div>    
+                            </div>
                             <!-- /. description -->                                                                                                             
                         </div>
                         <!-- /.box-body -->
                     </div>
                     <!-- /.box --> 
                 </section>
-                <!-- /. Update Product -->
-                
+                <!-- /. Create Product -->
+
                 <section class="col-md-3">
                     <div class="box box-solid">
                         <div class="box-header with-border">
@@ -90,19 +89,14 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="box-footer">                            
-                            <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>                            
-                            <a href="{{ route('product.delete', $product->id) }}"
-                                onclick="event.preventDefault();
-                                            document.getElementById('delete-form').submit();">
-                                <button class="btn btn-danger pull-left">{{ __('Delete') }}</button>
-                            </a> 
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">{{ __('Add Product') }}</button>                            
                         </div>
                     </div>
-                    <!-- /.box-footer (Update product action) --> 
+                    <!-- /.box-footer (Add product action) --> 
                 </section> 
-                <!-- /. Publish Product  -->
- 
+                 <!-- /. Publish Product  -->
+
                 <section class="col-md-3">
                     <!-- Custom Tabs -->
                     <div class="nav-tabs-custom">
@@ -178,7 +172,7 @@
                             <div class="form-group">
                                 <label for="regular_price" class="col-sm-3 control-label">{{ __('Regular Price')}}</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="regular_price" name="regular_price" value="{{ $product->regular_price }}">
+                                    <input type="text" class="form-control" id="regular_price" name="regular_price" value="{{ old('regular_price') }}">
                                 </div>
                             </div>
                             <!-- /. Regular price -->                            
@@ -186,7 +180,7 @@
                             <div class="form-group">
                                 <label for="sale_price" class="col-sm-3 control-label">{{ __('Sale Price')}}</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ $product->sale_price }}">
+                                    <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ old('sale_price') }}">
                                 </div>
                             </div>
                             <!-- /. Sale price -->                            
@@ -194,7 +188,7 @@
                             <div class="form-group">
                                 <label for="sku" class="col-sm-3 control-label">{{ __('SKU')}}</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="sku" name="sku" value="{{ $product->sku }}">
+                                    <input type="text" class="form-control" id="sku" name="sku" value="{{ old('sku') }}">
                                 </div>
                             </div>
                             <!-- /. SKU -->                            
@@ -210,7 +204,7 @@
 
                                 <div class="col-md-6">
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="stock_number" name="stock_number" value="{{ $product->stock_number }}" placeholder="Stock Number">
+                                        <input type="text" class="form-control" id="stock_number" name="stock_number" value="{{ old('stock_number') }}" placeholder="Stock Number">
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +213,7 @@
                             <div class="form-group">
                                 <label for="weight" class="col-sm-3 control-label">{{ __('Weight')}} <span> {{ __('(kg)')}}</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="weight" name="weight" value="{{ $product->weight }}">
+                                    <input type="text" class="form-control" id="weight" name="weight" value="{{ old('weight') }}">
                                 </div>
                             </div>
                             <!-- /. Weight -->
@@ -228,12 +222,7 @@
                     </div>
                 </section>   
                 <!-- /. Product Data -->
-                                                      
-            </form> 
-            
-            <form id="delete-form" method="POST" action="{{ route('product.delete', $product->id) }}" style="display: none;">
-                {{ method_field("DELETE") }}
-                @csrf
+                
             </form>
         </div>  
         <!-- /. row -->

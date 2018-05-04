@@ -16,13 +16,17 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->text('description')->nullable();
+            $table->text('short_description')->nullable();
             $table->string('status')->default('draft');
+            $table->string('type')->default('simple');
+            $table->string('visibility')->default('public');
             $table->unsignedDecimal('regular_price')->nullable();
             $table->unsignedDecimal('sale_price')->nullable();
-            $table->unsignedBigInteger('sku')->nullable();
-            $table->boolean('stock_availability')->default('1');
-            $table->unsignedDecimal('stock_number')->nullable(); 
+            $table->string('sku')->nullable();
+            $table->boolean('in_stock')->nullable();
+            $table->integer('stock_number')->nullable(); 
             $table->double('weight')->nullable();                        
             $table->timestamps();
             $table->softDeletes();
