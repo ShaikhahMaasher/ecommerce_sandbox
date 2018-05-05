@@ -39,4 +39,22 @@ Route::get('shop', function () {
     return view('shop.index');
 });
 
-
+Route::prefix('admin/category')->group(function () {
+    //------------Chid Categories Routes-------
+     Route::get('/','CategoryController@index')->name('admin.category');
+     Route::get('/create','CategoryController@create');      
+     Route::post('/store','CategoryController@store');
+     Route::get('/edit/{slug}','CategoryController@edit');
+     Route::post('/update/{slug}','CategoryController@update');
+     Route::get('/delete/{slug}','CategoryController@destroy');
+     Route::delete('/delete/{slug}','CategoryController@destroy')->name('category.delete');;
+     Route::get('/status-show/{slug}','CategoryController@showCategory');
+     Route::get('/status-hide/{slug}','CategoryController@hideCategory');
+     Route::get('/trashed','CategoryController@readTrashed');
+     Route::get('/restore/{slug}','CategoryController@restore');
+     //------------Parent Categories Routes-------
+     Route::get('/create-parent','ParentCategoryController@create');
+     Route::post('/store-parent','ParentCategoryController@store');
+     Route::get('/edit-parent/{id}','ParentCategoryController@edit');
+     Route::post('/update-parent/{id}','ParentCategoryController@update');
+ });
