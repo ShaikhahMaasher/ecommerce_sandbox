@@ -114,38 +114,26 @@
                         <div class="tab-content product-category">
                             <div class="tab-pane active" id="all_categ">
                                 <ul class="category-group">
+                                    @foreach($categories as $category)
                                     <li id="">
                                         <label class="">
-                                            <input value="" type="checkbox" name=""> 
-                                                {{ __('catery#1')}}
+                                            <input value="{{ $category->id }}" type="checkbox" name="parent-categ[]" {{ $product->checkUserCategory($product->parentcategories, $category) }}> 
+                                                {{ __($category->name) }}
                                         </label>
-                                    </li>
-                                    <li id="">
-                                        <label class="">
-                                            <input value="" type="checkbox" name=""> 
-                                                {{ __('catery#2')}}
-                                        </label>
-                                    </li>
-                                    <li id="">
-                                        <label class="">
-                                            <input value="" type="checkbox" name=""> 
-                                                {{ __('catery#3')}}
-                                        </label>
+                                        @if (count($category->childs))                                        
                                         <ul class="children">
+                                            @foreach ($category->childs as $child)
                                             <li id="">
                                                 <label class="">
-                                                    <input value="" type="checkbox" name=""> 
-                                                        {{ __('child#1')}}
+                                                    <input value="{{ $child->id }}" type="checkbox" name="child-categ[]" {{ $product->checkUserCategory($product->categories, $child) }}> 
+                                                        {{ __($child->name) }}
                                                 </label>
-                                            </li>
-                                            <li id="">
-                                                <label class="">
-                                                    <input value="" type="checkbox" name=""> 
-                                                        {{ __('child#2')}}
-                                                </label>
-                                            </li>
+                                            </li> 
+                                            @endforeach
                                         </ul>
-                                    </li>                                        
+                                        @endif
+                                    </li>     
+                                    @endforeach                                                               
                                 </ul>                                
                             </div>
                             <!-- /.tab-pane -->
@@ -160,7 +148,7 @@
                         </div>
                         <!-- /.tab-content -->
                         <div class="tab-footer">
-                            <a href=""><i class="fa fa-plus"></i> Add new category</a>
+                            <a href="{{ route('category.create') }}"><i class="fa fa-plus"></i> Add new category</a>
                         </div>
                     </div>
                     <!-- nav-tabs-custom -->

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateParentcategoriesProductsPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('parent_category_product', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name'); 
-            $table->string('slug')->nullable();
-            $table->text('desc')->nullable();
+            $table->integer('product_id');            
             $table->integer('parent_category_id');
-            $table->char('status', 4)->default(1);            
             $table->timestamps();
-            $table->softDeletes();            
         });
     }
 
@@ -32,6 +28,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('parent_category_product');
     }
 }

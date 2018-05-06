@@ -54,7 +54,7 @@
                             <td>
                                 <input type="checkbox">
                             </td>
-                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                            <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
                             <td class="product-title long-text"><a href="/admin/products/{{$product->id}}/edit">{{ $product->title }}</a></td>
                             <td>{{ $product->sku }}</td>
                             <td>
@@ -73,7 +73,14 @@
                                     {{ $product->regular_price }}
                                 @endif
                             </td>
-                            <td class="long-text product-category">Category Category Category Category Category Category</td>
+                            <td class="long-text product-category">
+                                @foreach ($product->parentcategories as $parent)
+                                    {{ $parent->name }}
+                                @endforeach
+                                @foreach ($product->categories as $child)
+                                    {{ $child->name }}
+                                @endforeach
+                            </td>
                             <td>
                                 @if ( $product->type == 'simple')
                                     <span data-toggle="tooltip" title="Simple"><i class="fa fa-cube"></i></span>

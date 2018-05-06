@@ -42,7 +42,7 @@ Route::get('shop', function () {
 Route::prefix('admin/category')->group(function () {
     //------------Chid Categories Routes-------
      Route::get('/','CategoryController@index')->name('admin.category');
-     Route::get('/create','CategoryController@create');      
+     Route::get('/create','CategoryController@create')->name('category.create');      
      Route::post('/store','CategoryController@store');
      Route::get('/edit/{slug}','CategoryController@edit');
      Route::post('/update/{slug}','CategoryController@update');
