@@ -14,9 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $parentsCategory=ParentCategory::all();
-        
-         return view('admin.categories.index', compact('parentsCategory'));
+        $parentsCategory=ParentCategory::paginate(5);
+        // temp count
+        $count = count(ParentCategory::all());
+         return view('admin.categories.index', compact('parentsCategory', 'count'));
        
     }
 

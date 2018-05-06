@@ -103,6 +103,16 @@
                         @endforeach                    
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-sm-4 pull-right table-pages">                        
+                        <div class="paginate-item">
+                            {{$products->render()}}
+                        </div>
+                        <div class="count">
+                            {{ $count }} {{ __('Products')}}
+                        </div>
+                    </div>
+                </div>
             @endif
         </section>
         <!-- /.content -->

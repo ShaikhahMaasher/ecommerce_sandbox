@@ -100,6 +100,16 @@
 			@endforeach
 
 		</table>
+		<div class="row">
+		<div class="col-sm-4 pull-right table-pages">                        
+			<div class="paginate-item">
+				{{$parentsCategory->render()}}
+			</div>
+			<div class="count">
+				{{ $count }} {{ __('Categories')}}
+			</div>
+		</div>
+		</div>
 		@endif
 
 		<!-- /.table -->

@@ -16,8 +16,10 @@ class ProductController extends Controller
     }
     // GET /products
     public function index() {
-        $products = Product::all();
-        return view('admin.products.index', compact('products'));        
+        $products = Product::paginate(15);
+        // temp count
+        $count = count(Product::all());
+        return view('admin.products.index', compact('products', 'count'));        
     }
 
     // GET /products/create

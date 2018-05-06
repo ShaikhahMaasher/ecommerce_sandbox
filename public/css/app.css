@@ -67,6 +67,25 @@ i.fa {
 
 .btn.select-all {
     padding: 3px 3px;
+}
+
+.paginate-item, .count {
+    float: right;
+}
+
+.table-pages {
+    margin: 0 auto;
+}
+
+.table-pages .count {
+    -webkit-transform: translateY(30%);
+            transform: translateY(30%);
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.table-pages .pagination {
+    margin: 0 auto;
 }@charset "UTF-8";
 
 /*!
