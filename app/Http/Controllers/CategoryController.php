@@ -14,9 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $parentsCategory=ParentCategory::all();
-        
-         return view('admin.categories.index',compact('parentsCategory'));
+        $parentsCategory=ParentCategory::paginate(5);
+        // temp count
+        $count = count(ParentCategory::all());
+         return view('admin.categories.index', compact('parentsCategory', 'count'));
        
     }
 
@@ -41,7 +42,6 @@ class CategoryController extends Controller
     {  
         $this->validate(request(),[
             'name'=>'required|unique:categories|min:3',
-           'parent_categories_id'=>'required'
         ]);
         
         Category::create(['name'=>$request->name,'desc'=>$request->desc,'parent_category_id'=>$request->parent_categories_id,'slug'=>$request->slug]);

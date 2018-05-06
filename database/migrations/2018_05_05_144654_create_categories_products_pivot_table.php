@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusColumnToCategoryTable extends Migration
+class CreateCategoriesProductsPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddStatusColumnToCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-           $table->char('status', 4)->default(1);
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id');
+            $table->integer('category_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddStatusColumnToCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('category_product');
     }
 }
