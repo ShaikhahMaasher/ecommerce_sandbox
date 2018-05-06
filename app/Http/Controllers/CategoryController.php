@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\ParentCategory;
 class CategoryController extends Controller
 {
+    public function __construct() 
+    {
+        $this->Middleware(['auth', 'admin']);
+    }
     /**
      * Display a listing of the resource.
      *

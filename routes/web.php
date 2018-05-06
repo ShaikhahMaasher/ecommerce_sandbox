@@ -58,3 +58,5 @@ Route::prefix('admin/category')->group(function () {
      Route::get('/edit-parent/{id}','ParentCategoryController@edit');
      Route::post('/update-parent/{id}','ParentCategoryController@update');
  });
+ Route::get('/admin/cate', 'CateController@index');
+ Route::post('/admin/cate/store', 'CateController@store');

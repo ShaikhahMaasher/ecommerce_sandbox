@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ParentCategory;
+use App\Cate;
 use Illuminate\Http\Request;
 
-class ParentCategoryController extends Controller
+class CateController extends Controller
 {
     public function __construct() 
     {
@@ -18,9 +18,9 @@ class ParentCategoryController extends Controller
      */
     public function index()
     {
-        $parentsCategory=ParentCategory::all();
-
-        return view('admin.categories.index',compact('parentsCategory'));
+        $categories=Cate::where('cate_id',0)->get();
+        $allcategories=Cate::all();
+          return view('admin.categories.cate',compact('categories','allcategories'));
     }
 
     /**
@@ -30,8 +30,7 @@ class ParentCategoryController extends Controller
      */
     public function create()
     {
-
-        return view('admin.categories.create-parent');
+        //
     }
 
     /**
@@ -41,22 +40,22 @@ class ParentCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-
     {
         $this->validate(request(),[
-            'name'=>'required'
+            'name'=>'required',
         ]);
-        ParentCategory::create(['name'=>$request->name,'desc'=>$request->desc]);
-        return redirect('admin/category');
+      $cate_id=! empty($request->parent_categories_id)? $request->parent_categories_id:0;
+        Cate::create(['name'=>$request->name,'cate_id'=>$cate_id]);
+        return redirect('admin/cate');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ParentCategory  $parentCategory
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function show(ParentCategory $parentCategory)
+    public function show(Cate $cate)
     {
         //
     }
@@ -64,37 +63,33 @@ class ParentCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ParentCategory  $parentCategory
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cate $cate)
     {
-        $parent=ParentCategory::find($id);
-        return view('admin.categories.edit-parent',compact('parent'));
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ParentCategory  $parentCategory
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, Cate $cate)
     {
-        $parent=ParentCategory::find($id);
-        $parent->update(['name'=>$request->name,'desc'=>$request->desc]);
-        return redirect('admin/category');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ParentCategory  $parentCategory
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ParentCategory $parentCategory)
+    public function destroy(Cate $cate)
     {
         //
     }
