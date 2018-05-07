@@ -40,7 +40,11 @@
                         <td>{{$category->id}}</td>
                         <td>{{$category->name}}</td>
                         <td>{{$category->desc}}</td>
-                        <td>{{$category->parentcategory->name}}</td>
+                        @if($category->category_id)
+                        <td>{{$category->parent->name}}</td>
+                        @else
+                        <td>{{ __('No parent') }}</td>
+                        @endif
                         <td>
                             <a class='col-sm-3' href="{{asset('/admin/category/restore/'.$category->slug)}}">
                                 <button type="button" class="btn btn-primary"> Restore

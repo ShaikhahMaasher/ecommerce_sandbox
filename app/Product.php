@@ -14,6 +14,7 @@ class Product extends Model
 
     // Guarded
     // protected $guarded = [];
+ 
         /**
      * Return the sluggable configuration array for this model.
      *
@@ -28,4 +29,30 @@ class Product extends Model
              ]
          ];
      }
+ 
+    /**
+     * Get the status with first letter uppercase using accessor.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getStatusAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    /**
+     * The categories that belong to the product.
+     */
+    public function categories() {
+        return $this->belongsToMany(Category::class);
+    }
+    public function checkUserCategory($user_categ, $all_categ) {
+        foreach ($user_categ as $user) {
+            if($user->id == $all_categ->id) 
+                return "checked";                            
+        }
+        return '';
+    }
+
 }

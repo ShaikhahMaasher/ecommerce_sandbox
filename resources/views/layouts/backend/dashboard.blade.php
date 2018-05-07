@@ -1,5 +1,7 @@
 @extends('layouts.backend.master')
-
+@section('head')
+    @yield('head')
+@endsection
 @section('body')
   <body class="hold-transition skin-blue sidebar-mini">
       <div class="wrapper" id="app">
@@ -10,7 +12,6 @@
 
           @yield('content')
 
-          @yield('footer')
           @include('layouts.backend.footer')
 
           @include('layouts.backend.sidebar')
@@ -20,5 +21,6 @@
 
       <!-- REQUIRED JS SCRIPTS -->
       <script src="{{asset('js/app.js')}}"></script>
+      @yield('footer')
   </body>
 @endsection

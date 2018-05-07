@@ -1,6 +1,6 @@
 @extends('layouts.backend.master')
 @section('head')
-  <link href="{{ asset('css/login.css') }}" type="text/css" rel="stylesheet">
+  <link href="{{ asset('css/iCheck.css') }}" type="text/css" rel="stylesheet">
 @endsection
 
 @section('body')
