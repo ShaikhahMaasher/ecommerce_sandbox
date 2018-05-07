@@ -26,9 +26,14 @@ class Category extends Model
         ];
     }
     
-     //Add relationship with parent category
-    public function parentcategory() {
-        return $this->belongsTo(ParentCategory::class, 'parent_category_id');
+    /**
+     * The Categories that has many categories.
+     */
+    public function childs() {
+        return $this->hasMany(Category::class);
+    }
+    public function parent(){
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     /**

@@ -74,11 +74,8 @@
                                 @endif
                             </td>
                             <td class="long-text product-category">
-                                @foreach ($product->parentcategories as $parent)
-                                    {{ $parent->name }}
-                                @endforeach
-                                @foreach ($product->categories as $child)
-                                    {{ $child->name }}
+                                @foreach ($product->categories as $category)
+                                    {{ $category->name }}
                                 @endforeach
                             </td>
                             <td>

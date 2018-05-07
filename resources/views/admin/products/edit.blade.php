@@ -47,6 +47,13 @@
                                 </div>
                             </div>
                             <!-- /. title -->
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                <label for="slug" class="control-label">{{ __('Product Slug')}}</label>
+                                    <input type="text" class="form-control" id="slug" name="slug" placeholder="Product Slug" value="{{ $product->slug }}">
+                                </div>
+                            </div>
+                            <!-- /. Slug -->
 
                             <div class="form-group">
                                 <div class="col-sm-12">
@@ -117,20 +124,11 @@
                                     @foreach($categories as $category)
                                     <li id="">
                                         <label class="">
-                                            <input value="{{ $category->id }}" type="checkbox" name="parent-categ[]" {{ $product->checkUserCategory($product->parentcategories, $category) }}> 
+                                            <input value="{{ $category->id }}" type="checkbox" name="categ[]" {{ $product->checkUserCategory($product->categories, $category) }}> 
                                                 {{ __($category->name) }}
                                         </label>
                                         @if (count($category->childs))                                        
-                                        <ul class="children">
-                                            @foreach ($category->childs as $child)
-                                            <li id="">
-                                                <label class="">
-                                                    <input value="{{ $child->id }}" type="checkbox" name="child-categ[]" {{ $product->checkUserCategory($product->categories, $child) }}> 
-                                                        {{ __($child->name) }}
-                                                </label>
-                                            </li> 
-                                            @endforeach
-                                        </ul>
+                                            @include('admin.products.child-category',['childs'=>$category->childs,'is_create'=>0])
                                         @endif
                                     </li>     
                                     @endforeach                                                               

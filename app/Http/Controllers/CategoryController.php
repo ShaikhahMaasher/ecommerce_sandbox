@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Category;
 use Illuminate\Http\Request;
-use App\ParentCategory;
 class CategoryController extends Controller
 {
+    public function __construct() 
+    {
+        $this->Middleware(['auth', 'admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,10 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $parentsCategory=ParentCategory::paginate(5);
+        $categories=Category::where('category_id',0)->paginate(5);
         // temp count
-        $count = count(ParentCategory::all());
-         return view('admin.categories.index', compact('parentsCategory', 'count'));
+         $count = count(Category::all());
+         return view('admin.categories.index', compact('categories', 'count'));
        
     }
 
@@ -28,8 +30,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parentsCategory=ParentCategory::all();
-        return view('admin.categories.create',compact('parentsCategory'));
+        $categories=Category::all();
+        return view('admin.categories.create',compact('categories'));
     }
 
     /**
@@ -40,23 +42,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {  
-        $this->validate(request(),[
-            'name'=>'required|unique:categories|min:3',
-        ]);
-        
-        Category::create(['name'=>$request->name,'desc'=>$request->desc,'parent_category_id'=>$request->parent_categories_id,'slug'=>$request->slug]);
+        $this->validate(request(),['name'=>'required|min:3',]);
+        $category_id=! empty($request->parent_categories_id)? $request->parent_categories_id:0;
+        Category::create(
+            [
+                'name'=>$request->name,
+                'desc'=>$request->desc,
+                'category_id'=> $category_id,
+                'slug'=>$request->slug
+            ]);
         return redirect('admin/category');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
     }
 
     /**
@@ -67,9 +62,9 @@ class CategoryController extends Controller
      */
     public function edit($slug)
     {
-        $parentsCategory=ParentCategory::all();
+        $categories=Category::all();
         $category=Category::where('slug', $slug)->first();
-        return view('admin.categories.edit',compact('category','parentsCategory'));
+        return view('admin.categories.edit',compact('category','categories'));
     }
 
     /**
@@ -81,9 +76,17 @@ class CategoryController extends Controller
      */
      public function update(Request $request, $slug)
      {
+        $this->validate(request(),['name'=>'required|min:3',]);
          $category=Category::where('slug', $slug)->first();
-         $category->update(['name'=>$request->name,'desc'=>$request->desc,'parent_category_id'=>$request->parent_categories_id,'slug'=>$request->slug]);
-         return redirect('admin/category');
+         $category_id=! empty($request->parent_categories_id)? $request->parent_categories_id:0;
+         $category->update(
+             [
+                 'name'=>$request->name,
+                 'desc'=>$request->desc,        
+                 'category_id'=>$category_id,    
+                 'slug'=>$request->slug
+             ]);
+             return redirect('admin/category');
      }
 
     /**
@@ -93,25 +96,32 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function destroy($slug)
-     {
-         Category::where('slug', $slug)->delete();
+     { //change the parent category of its childs
+        $category=Category::where('slug', $slug)->first();;
+        Category::where('category_id',$category->id)->update(['category_id'=>$category->category_id]);
+        //delete category
+        $category->delete();
          return redirect('admin/category');
      }
+
      //Get category/status-show/{slug}
      public function showCategory($slug){
         Category::where('slug', $slug)->where('status','0')->update(['status'=>1]);
         return redirect('admin/category');
     }
+
       //Get category/status-hide/{slug}
     public function hideCategory($slug){
         Category::where('slug', $slug)->where('status','1')->update(['status'=>0]);
         return redirect('admin/category');
     }
+
     //Get category/trashed
     public function readTrashed(){
         $categories=Category::onlyTrashed()->get();
         return view('admin.categories.trashed',compact('categories'));
     }
+
     //Get category/restore/{slug}
     public function restore($slug){
         Category::withTrashed()->where('slug',$slug)->restore();

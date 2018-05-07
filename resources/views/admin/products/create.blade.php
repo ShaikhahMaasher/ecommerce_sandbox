@@ -46,6 +46,13 @@
                                 </div>
                             </div>
                             <!-- /. title -->
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label for="slug" class="control-label">{{ __('Product Slug')}}</label>
+                                    <input type="text" class="form-control" id="slug" name="slug"  placeholder="Product Slug" >
+                                </div>
+                            </div>
+                            <!-- /. slug -->
 
                             <div class="form-group">
                                 <div class="col-sm-12">
@@ -53,6 +60,7 @@
                                     <textarea id="short_description" name="short_description" class="form-control" rows="3" placeholder="Enter a short description of the product..."></textarea>
                                 </div>
                             </div>
+                            
                             <!-- /. short description -->                             
 
                             <div class="form-group">
@@ -111,20 +119,11 @@
                                     @foreach($categories as $category)
                                     <li id="">
                                         <label class="">
-                                            <input value="{{ $category->id }}" type="checkbox" name="parent-categ[]"> 
+                                            <input value="{{ $category->id }}" type="checkbox" name="categ[]"> 
                                                 {{ __($category->name) }}
                                         </label>
                                         @if (count($category->childs))
-                                        <ul class="children">                                        
-                                            @foreach ($category->childs as $child)
-                                            <li id="">
-                                                <label class="">
-                                                    <input value="{{ $child->id }}" type="checkbox" name="child-categ[]"> 
-                                                        {{ __($child->name)}}
-                                                </label>
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                                            @include('admin.products.child-category',['childs'=>$category->childs,'is_create'=>1])
                                         @endif
                                     </li>
                                     @endforeach                                                           

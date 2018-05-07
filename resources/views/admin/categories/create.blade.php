@@ -50,7 +50,7 @@
                               <div class="form-group">
                                 <select id='parent_categories_id' name='parent_categories_id' class="form-control" >
                                     <option value=''>select parent</option>
-                                      @foreach ($parentsCategory as $parent) 
+                                      @foreach ($categories as $parent) 
                                         <option value='{{$parent->id}}'>{{$parent->name}}</option>
                                       @endforeach
                                 </select>
@@ -62,11 +62,17 @@
                 </div>
                 <!-- /. col-md-9 -->
                 <div class="col-md-3">
-                    <div class="box-footer" style="text-align: center">
-                          <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Create</button>
-                          </div>
-                     </div>
+                        <div class="box-footer" style="text-align: center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                </div>
+                            <!-- /.col-md-6 --> 
+                            </div>
+                        <!-- /.row --> 
+                    </div>
                     <!-- /.box-footer --> 
                 </div>  
                  <!-- /.col-md-3 -->  

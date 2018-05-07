@@ -40,7 +40,7 @@ Route::get('shop', function () {
 });
 
 Route::prefix('admin/category')->group(function () {
-    //------------Chid Categories Routes-------
+    //------------Categories Routes-------
      Route::get('/','CategoryController@index')->name('admin.category');
      Route::get('/create','CategoryController@create')->name('category.create');      
      Route::post('/store','CategoryController@store');
@@ -52,9 +52,5 @@ Route::prefix('admin/category')->group(function () {
      Route::get('/status-hide/{slug}','CategoryController@hideCategory');
      Route::get('/trashed','CategoryController@readTrashed');
      Route::get('/restore/{slug}','CategoryController@restore');
-     //------------Parent Categories Routes-------
-     Route::get('/create-parent','ParentCategoryController@create');
-     Route::post('/store-parent','ParentCategoryController@store');
-     Route::get('/edit-parent/{id}','ParentCategoryController@edit');
-     Route::post('/update-parent/{id}','ParentCategoryController@update');
  });
+ 

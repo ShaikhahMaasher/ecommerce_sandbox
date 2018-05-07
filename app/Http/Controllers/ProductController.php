@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Product;
-use App\ParentCategory;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     // GET /products/create
     public function create() {
-        $categories = ParentCategory::all();
+        $categories = Category::where('category_id',0)->get();
         return view('/admin.products.create', compact('categories'));
     }
 
@@ -41,18 +41,13 @@ class ProductController extends Controller
                 'sku' => $request->sku, 
                 'in_stock' => $request->in_stock, 
                 'weight' => $request->weight,
+                'slug'=>$request->slug
         ]);
         ($request->in_stock == 1)? $product->stock_number = $request->stock_number:'';
         $product->save();
-        
-        if ($request['parent-categ']) {
-            foreach ($request['parent-categ'] as $parent) {
-                $product->parentcategories()->attach($parent);
-            }   
-        }
 
-        if ($request['child-categ']) {
-            foreach ($request['child-categ'] as $child) {
+        if ($request['categ']) {
+            foreach ($request['categ'] as $child) {
                 $product->categories()->attach($child);
             }   
         }
@@ -64,7 +59,7 @@ class ProductController extends Controller
     // GET /products/id/edit
     public function edit($id) {
         $product = Product::findOrFail($id);
-        $categories = ParentCategory::all(); 
+        $categories = Category::where('category_id',0)->get();
         return view('/admin.products.edit', compact('product', 'categories'));
     }
 
@@ -74,23 +69,19 @@ class ProductController extends Controller
         $product->update(request(
             [
                 'title', 
+                'slug',                
                 'short_description', 
                 'description', 
                 'regular_price', 
                 'sale_price', 
                 'sku', 
-                'in_stock', 
+                'in_stock',
                 ($request->in_stock == 1)? 'stock_number':'', 
                 'weight',
             ])
         );
-
-        if ($request['parent-categ']) {
-            $product->parentcategories()->sync($request['parent-categ']);            
-        }
-
-        if ($request['child-categ']) {
-            $product->categories()->sync($request['child-categ']);              
+        if ($request['categ']) {
+            $product->categories()->sync($request['categ']);              
         }
         return back();
     }
