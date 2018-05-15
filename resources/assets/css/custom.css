@@ -80,3 +80,26 @@ i.fa {
 .table-pages .pagination {
     margin: 0 auto;
 }
+
+.center {
+    text-align: center;
+}
+
+.modal-header {
+    height: 70px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+}
+
+.modal-header .close {
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    max-height: 100%;
+    height: unset;
+    left: auto;
+    right: 0;
+    width: 40px;
+}

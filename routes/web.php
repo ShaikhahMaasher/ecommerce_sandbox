@@ -34,6 +34,9 @@ Route::get('/admin/products', 'ProductController@index');
 Route::get('/admin/products/{id}/edit', 'ProductController@edit');
 Route::patch('/admin/products/{id}', 'ProductController@update');
 Route::delete('/admin/products/{id}', 'ProductController@destroy')->name('product.delete');
+Route::post('admin/products/upload_gallery', 'ProductController@uploadGallery')->name('upload.gallery');
+Route::post('admin/products/update_gallery/{id}', 'ProductController@updateGallery')->name('update.gallery');
+
 //-----------shop Route -------------
 Route::get('shop', function () {
     return view('shop.index');
@@ -53,4 +56,9 @@ Route::prefix('admin/category')->group(function () {
      Route::get('/trashed','CategoryController@readTrashed');
      Route::get('/restore/{slug}','CategoryController@restore');
  });
+ 
+
+Route::get('admin/test/images', 'TestController@create');
+Route::get('admin/test', 'TestController@index');
+Route::post('admin/test/store', 'TestController@store')->name('images.store');
  

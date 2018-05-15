@@ -1,5 +1,8 @@
 @extends('layouts.backend.dashboard') 
 
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+@endsection
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -28,7 +31,7 @@
             </div> 
             <!-- /. Form Errors -->
                         
-            <form method="POST" action="/admin/products" class="form-horizontal">
+            <form method="POST" action="/admin/products" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                 <section class="col-md-9">
                     <div class="box box-primary">              
@@ -148,6 +151,34 @@
                 </section>                
                 <!-- /. Product Category -->
 
+                <section class="col-md-3">
+                    <div class="box box-solid">  
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ __('Product Image') }}</h3>
+                        </div>                      
+                        <div class="box-body product-publish">                            
+                            <div>
+                                <input type="file" name="featured_img">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-footer (Add product action) --> 
+                </section> 
+                <!-- /. Upload featured image  -->  
+
+                <section class="col-md-3">
+                    <div class="box box-solid">  
+                        <div class="box-header with-border">
+                            <h2 class="box-title">{{ __('Product Gallery') }}</h2>
+                        </div>                      
+                        <div class="box-body product-publish">                            
+                            <a href="#" class="open-image-modal" data-toggle="modal" data-target="#image-modal">{{ __('Add product gallery images')}}</a>
+                        </div>
+                    </div>
+                    <!-- /.box-footer (Add product action) --> 
+                </section> 
+                <!-- /. Upload gallery images  -->                
+
                 <section class="col-md-9">
                     <div class="box box-solid">
                         <div class="box-header with-border">
@@ -209,8 +240,10 @@
                     </div>
                 </section>   
                 <!-- /. Product Data -->
-                
             </form>
+            
+            @include('components.dropzone', ['route'=>'/admin/products/upload_gallery'])                            
+            
         </div>  
         <!-- /. row -->
     </section>
@@ -222,4 +255,5 @@
 <!-- Adding texteditor scripts -->
 @section('footer')
     @include('components.texteditor', ['name'=>'description'])
+    <script src="{{asset('js/dropzone.js')}}"></script>   
 @endsection

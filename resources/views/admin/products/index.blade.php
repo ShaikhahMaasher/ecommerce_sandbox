@@ -36,6 +36,7 @@
                                     </button>
                                 </span>
                             </th>
+                            <th class="center"><i class="fa fa-image"></i></th>
                             <th><span data-toggle="tooltip" title="Featured Product"><i class="fa fa-star text-yellow"></i></span></th>                            
                             <th>{{ __('Title') }}</th>
                             <th>{{ __('SKU') }}</th>
@@ -53,6 +54,13 @@
                         <tr>
                             <td>
                                 <input type="checkbox">
+                            </td>
+                            <td class="center">
+                                @if(!empty( $product->images()->where('imageable_id', $product->id)->where('path', 'like', '%feature_%')->first() ))
+                                    <img src="{{ Storage::disk('local')->url('products\\' . $product->images()->where('imageable_id', $product->id)->where('path', 'like', '%feature_%')->first()->path) }}" width="30px" height="30px">
+                                @else
+                                    <img src="{{ Storage::disk('local')->url('img-placeholder.png') }}" alt="{{$product->title}}" width="30px" height="30px">
+                                @endif
                             </td>
                             <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
                             <td class="product-title long-text"><a href="/admin/products/{{$product->id}}/edit">{{ $product->title }}</a></td>
@@ -122,51 +130,51 @@
     <script src="{{ asset('js/icheck.js')}}"></script>
     <!-- Page Script -->
     <script>
-        $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-    $(function () {
-        //Enable iCheck plugin for checkboxes
-        //iCheck for checkbox and radio inputs
-        $('.product-table input[type="checkbox"]').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass: 'iradio_flat-blue'
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();   
         });
+        $(function () {
+            //Enable iCheck plugin for checkboxes
+            //iCheck for checkbox and radio inputs
+            $('.product-table input[type="checkbox"]').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+            });
 
-        //Enable check and uncheck all functionality
-        $(".checkbox-toggle").click(function () {
-        var clicks = $(this).data('clicks');
-        if (clicks) {
-            //Uncheck all checkboxes
-            $(".product-table input[type='checkbox']").iCheck("uncheck");
-            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
-        } else {
-            //Check all checkboxes
-            $(".product-table input[type='checkbox']").iCheck("check");
-            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
-        }
-        $(this).data("clicks", !clicks);
+            //Enable check and uncheck all functionality
+            $(".checkbox-toggle").click(function () {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+                //Uncheck all checkboxes
+                $(".product-table input[type='checkbox']").iCheck("uncheck");
+                $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+            } else {
+                //Check all checkboxes
+                $(".product-table input[type='checkbox']").iCheck("check");
+                $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+            }
+            $(this).data("clicks", !clicks);
+            });
+
+            //Handle starring for glyphicon and font awesome
+            $(".mailbox-star").click(function (e) {
+            e.preventDefault();
+            //detect type
+            var $this = $(this).find("a > i");
+            var glyph = $this.hasClass("glyphicon");
+            var fa = $this.hasClass("fa");
+
+            //Switch states
+            if (glyph) {
+                $this.toggleClass("glyphicon-star");
+                $this.toggleClass("glyphicon-star-empty");
+            }
+
+            if (fa) {
+                $this.toggleClass("fa-star");
+                $this.toggleClass("fa-star-o");
+            }
+            });
         });
-
-        //Handle starring for glyphicon and font awesome
-        $(".mailbox-star").click(function (e) {
-        e.preventDefault();
-        //detect type
-        var $this = $(this).find("a > i");
-        var glyph = $this.hasClass("glyphicon");
-        var fa = $this.hasClass("fa");
-
-        //Switch states
-        if (glyph) {
-            $this.toggleClass("glyphicon-star");
-            $this.toggleClass("glyphicon-star-empty");
-        }
-
-        if (fa) {
-            $this.toggleClass("fa-star");
-            $this.toggleClass("fa-star-o");
-        }
-        });
-    });
     </script>
 @endsection

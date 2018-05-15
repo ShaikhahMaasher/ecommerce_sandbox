@@ -15,7 +15,7 @@ class Product extends Model
     // Guarded
     // protected $guarded = [];
  
-        /**
+    /**
      * Return the sluggable configuration array for this model.
      *
      */
@@ -47,12 +47,17 @@ class Product extends Model
     public function categories() {
         return $this->belongsToMany(Category::class);
     }
-    public function checkUserCategory($user_categ, $all_categ) {
-        foreach ($user_categ as $user) {
-            if($user->id == $all_categ->id) 
+
+    public function checkUserCategory($user_categs, $all_categ) {
+        foreach ($user_categs as $user_categ) {
+            if($user_categ->id == $all_categ->id) 
                 return "checked";                            
         }
         return '';
+    }
+
+    public function images() {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
 }
