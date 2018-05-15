@@ -59,5 +59,8 @@ class Product extends Model
     public function images() {
         return $this->morphMany(Image::class, 'imageable');
     }
-
+                                   
+    public function productImage($type) {
+        return $this->images()->where('path', 'like', '%'.$type.'_%')->first();
+    }
 }

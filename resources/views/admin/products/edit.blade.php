@@ -163,7 +163,16 @@
                         </div>                      
                         <div class="box-body product-publish">                            
                             <div>
-                                <input type="file" name="featured_img">
+                                @if($product->productImage('feature'))
+                                <a class="upload-featured pointer hide">Edit featured image</a>
+                                <img id="preview-img" src="{{ Storage::disk('local')->url('products\\' . $product->productImage('feature')->path) }}">                                                               
+                                <a class="pointer" id="remove-feature-id" data-id="{{ $product->id }}">{{ __('Remove image') }}</a>                                                                                                
+                                @else
+                                <a class="upload-featured pointer">Add featured image</a>
+                                <img id="preview-img" style="display:none;"/>
+                                <a class="pointer remove-img" style="display:none;">{{ __('Remove image') }}</a>                                                                                                                                
+                                @endif
+                                <input type="file" name="featured_img" id="featured-img" style="display:none;" onchange="showPreview(this)">                                
                             </div>
                         </div>
                     </div>
@@ -265,5 +274,22 @@
 <!-- Adding texteditor scripts -->
 @section('footer')
     @include('components.texteditor', ['name'=>'description'])
-    <script src="{{asset('js/dropzone.js')}}"></script>       
+    <script src="{{asset('js/dropzone.js')}}"></script> 
+    <script>
+        function showPreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#preview-img').attr('src', e.target.result);
+                    document.getElementById('preview-img').style.display = "block";
+                    $('.remove-img').show(); 
+                    $('#remove-feature-id').hide();                         
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                $('.upload-featured').hide();
+            }
+        }
+    </script>      
 @endsection

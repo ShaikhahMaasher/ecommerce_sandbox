@@ -36,6 +36,7 @@ Route::patch('/admin/products/{id}', 'ProductController@update');
 Route::delete('/admin/products/{id}', 'ProductController@destroy')->name('product.delete');
 Route::post('admin/products/upload_gallery', 'ProductController@uploadGallery')->name('upload.gallery');
 Route::post('admin/products/update_gallery/{id}', 'ProductController@updateGallery')->name('update.gallery');
+Route::post('admin/products/delete_feature', 'ProductController@deleteFeature')->name('delete.feature');
 
 //-----------shop Route -------------
 Route::get('shop', function () {

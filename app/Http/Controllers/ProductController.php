@@ -107,20 +107,22 @@ class ProductController extends Controller
             $location = Storage_path('\app\public\products\\' . $filename);
             Image::make($img)->save($location);
 
-            // Fetch old image from database and update database
-            $img = $product->images()
-            ->where('imageable_id', $product->id)
-            ->where('path', 'like', '%feature_%')
-            ->first();
-
-            // Get old image path
-            $oldImage = $img->path;
-
-            // Update database with new image path
-            $img->update(['path' => $filename]);
-
-            // Delete old image from storage
-            Storage::delete('public\products\\'.$oldImage);
+            // check if has old image, then update
+            if($product->productImage('feature')) {
+                // Fetch old image from database and update database
+                $img = $product->productImage('feature');
+                // Get old image path
+                $oldImage = $img->path;
+                // Update database with new image path
+                $img->update(['path' => $filename]);
+                // Delete old image from storage
+                Storage::delete('public\products\\'.$oldImage);
+            //else create new featured image
+            } else { 
+                $product->images()->create([
+                    'path' => $filename
+                ]);
+            }
         }
 
         $product->images()->update([
@@ -173,5 +175,14 @@ class ProductController extends Controller
                 'path' => $filename
             ]);
         }
+    }
+
+    public function deleteFeature(Request $request) {
+        $response = array(
+            'status' => 'success',
+            'msg' => 'Image has been successfully deleted',
+        );
+        Product::findOrFail($request->id)->productImage('feature')->delete();        
+        return response()->json($response);     
     }
 }

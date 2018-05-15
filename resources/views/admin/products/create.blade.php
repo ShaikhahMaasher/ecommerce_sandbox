@@ -158,7 +158,10 @@
                         </div>                      
                         <div class="box-body product-publish">                            
                             <div>
-                                <input type="file" name="featured_img">
+                                <a class="upload-featured pointer">Add featured image</a>
+                                <input type="file" name="featured_img" id="featured-img" style="display:none;" onchange="showPreview(this)">
+                                <img id="preview-img" style="display:none;"/>
+                                <a class="pointer remove-img" style="display:none;">Remove image</a>                                
                             </div>
                         </div>
                     </div>
@@ -255,5 +258,21 @@
 <!-- Adding texteditor scripts -->
 @section('footer')
     @include('components.texteditor', ['name'=>'description'])
-    <script src="{{asset('js/dropzone.js')}}"></script>   
+    <script src="{{asset('js/dropzone.js')}}"></script>  
+    <script>
+        function showPreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#preview-img').attr('src', e.target.result);
+                    document.getElementById('preview-img').style.display = "block";
+                    $('.remove-img').show();                        
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                $('.upload-featured').hide();
+            }
+        }
+    </script> 
 @endsection

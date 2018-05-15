@@ -109,6 +109,14 @@ i.fa {
     left: auto;
     right: 0;
     width: 40px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+#preview-img {
+    max-width: 100%;
 }@charset "UTF-8";
 
 /*!

@@ -56,8 +56,8 @@
                                 <input type="checkbox">
                             </td>
                             <td class="center">
-                                @if(!empty( $product->images()->where('imageable_id', $product->id)->where('path', 'like', '%feature_%')->first() ))
-                                    <img src="{{ Storage::disk('local')->url('products\\' . $product->images()->where('imageable_id', $product->id)->where('path', 'like', '%feature_%')->first()->path) }}" width="30px" height="30px">
+                                @if(!empty( $product->productImage('feature') ))
+                                    <img src="{{ Storage::disk('local')->url('products\\' . $product->productImage('feature')->path) }}" width="30px" height="30px">
                                 @else
                                     <img src="{{ Storage::disk('local')->url('img-placeholder.png') }}" alt="{{$product->title}}" width="30px" height="30px">
                                 @endif
