@@ -13,10 +13,6 @@ use Storage;
 
 class ProductController extends Controller
 {
-    public function __construct() 
-    {
-        $this->Middleware(['auth', 'admin']);
-    }
     // GET /products
     public function index() {
         $products = Product::paginate(15);      
