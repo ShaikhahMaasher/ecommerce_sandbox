@@ -3,12 +3,13 @@
 namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \Cviebrock\EloquentSluggable\Sluggable;
+use Storage;
 class Product extends Model
 {
-        //To call sluggable method
-        use Sluggable;
-        //To call SoftDeletes method
-        use SoftDeletes;
+    //To call sluggable method
+    use Sluggable;
+    //To call SoftDeletes method
+    use SoftDeletes;
     // Fillable 
     // protected $fillable = ['title', 'description'];
 
@@ -61,6 +62,27 @@ class Product extends Model
     }
                                    
     public function productImage($type) {
-        return $this->images()->where('path', 'like', '%'.$type.'_%')->first();
+        $query = $this->images()->where('path', 'like', '%'.$type.'_%');
+        if ($type == 'feature') {
+            return $query->first();
+        }
+        return $query->get();
+    }
+
+    public function getImage($type) {
+        if ($type == 'feature')
+            return Storage::disk('local')->url('products\\' . $this->productImage($type)->path);
+        else {
+            $galleryImages = [];
+            $images = $this->productImage($type);
+            foreach ($images as $image) {
+                $galleryImages[] = Storage::disk('local')->url('products\\' . $image->path);
+            }            
+            return $galleryImages;
+        }
+    }
+
+    public function currentPrice() {
+        return $current_price = is_null($this->sale_price)? $this->regular_price : $this->sale_price;
     }
 }

@@ -26,7 +26,8 @@ Route::get('admin/login', 'Admin\LoginController@showLoginForm')->name('admin.lo
 Route::get('admin', 'Admin\LoginController@showLoginForm')->name('admin.login.show');
 
 
-// Shop page
-Route::get('shop', function () {
-    return view('shop.index');
+// Shop routes
+Route::prefix('/shop')->group(function() {
+    Route::get('/','ShopController@index');
+    Route::get('/product/{slug}','ShopController@productDetails')->name('product.details');      
 });

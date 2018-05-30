@@ -57,7 +57,7 @@
                             </td>
                             <td class="center">
                                 @if(!empty( $product->productImage('feature') ))
-                                    <img src="{{ Storage::disk('local')->url('products\\' . $product->productImage('feature')->path) }}" width="30px" height="30px">
+                                    <img src="{{ $product->getImage('feature') }}" width="30px" height="30px">
                                 @else
                                     <img src="{{ Storage::disk('local')->url('img-placeholder.png') }}" alt="{{$product->title}}" width="30px" height="30px">
                                 @endif
@@ -74,13 +74,7 @@
                                     @endif
                                 </div>                                
                             </td>
-                            <td>
-                                @if ($product->sale_price)
-                                    {{ $product->sale_price }}
-                                @else
-                                    {{ $product->regular_price }}
-                                @endif
-                            </td>
+                            <td>{{ $product->currentPrice() }}</td>
                             <td class="long-text product-category">
                                 @foreach ($product->categories as $category)
                                     {{ $category->name }}
@@ -98,11 +92,12 @@
                                 <p>{{ $product->updated_at->toFormattedDateString() }}</p>
                             </td>                            
                             <td>
-                                <form method="POST" action="/admin/products/{{$product->id}}">
+                                <form class="products-index" method="POST" action="/admin/products/{{$product->id}}">
                                     {{ method_field("DELETE") }}
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                                    <button type="submit" class="btn btn-danger"><span class="fa fa-trash"></span></button>
                                 </form>
+                                <a href="{{route('product.details', $product->slug)}}" class="btn btn-primary"><span class="fa fa-eye"></span></a>
                             </td>
                         </tr>
                         @endforeach                    

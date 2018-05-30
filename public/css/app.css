@@ -117,6 +117,10 @@ i.fa {
 
 #preview-img {
     max-width: 100%;
+}
+
+form.products-index {
+    display: inline;
 }@charset "UTF-8";
 
 /*!
