@@ -42,3 +42,8 @@ Route::prefix('/category')->group(function() {
     Route::get('/trashed','CategoryController@readTrashed');
     Route::get('/restore/{slug}','CategoryController@restore');
 });
+
+// Gallery route group
+Route::prefix('/gallery')->group(function() {
+    Route::get('/', 'GalleryController@index')->name('gallery.index');
+});

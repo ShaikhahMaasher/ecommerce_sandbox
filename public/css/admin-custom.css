@@ -1,0 +1,38 @@
+.content-wrapper .dashboard-cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    padding-top: 50px;
+}
+
+.content-wrapper .dashboard-cta .card {
+    background-color: #fff;
+    height: 200px;
+    margin: 1px;
+    flex: 0 0 24%;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #eee;
+    flex-direction: column;
+    text-decoration: initial;
+    cursor: pointer;
+}
+
+.content-wrapper .dashboard-cta .card:hover {
+    border: 2px solid #3c8dbc;
+    box-shadow: #3c8dbc 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px;
+}
+
+.content-wrapper .dashboard-cta .card .cta {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.content-wrapper .dashboard-cta .card i {
+    font-size: 30px;
+    display: contents;
+}

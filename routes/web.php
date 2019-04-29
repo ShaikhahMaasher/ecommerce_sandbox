@@ -14,7 +14,7 @@
 // Welcome page
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('homepage');
 
 Auth::routes();
 
@@ -28,6 +28,10 @@ Route::get('admin', 'Admin\LoginController@showLoginForm')->name('admin.login.sh
 
 // Shop routes
 Route::prefix('/shop')->group(function() {
-    Route::get('/','ShopController@index');
+    Route::get('/','ShopController@index')->name('product.index');
     Route::get('/product/{slug}','ShopController@productDetails')->name('product.details');      
 });
+
+Route::get('/cart', function () {
+    return view('shop.cart');
+})->name('cart');

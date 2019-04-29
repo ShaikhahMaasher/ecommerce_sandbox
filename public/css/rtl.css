@@ -1,0 +1,84 @@
+html {
+    direction: rtl;
+    unicode-bidi: isolate;
+}
+
+.sidenav {
+    padding-right: 0px;
+}
+
+.input-field.col label {
+    right: .75rem;
+    left: 0;
+}
+
+.input-field>label:not(.label-icon).active {
+    -webkit-transform: translateY(-14px) scale(1.01);
+    transform: translateY(-14px) scale(1.01);
+}
+
+#account-dropdown input {
+    padding-right: 2%;
+    padding-left: 0;
+}
+
+.chart-row .progress .determinate {
+    right: 0;
+    left: auto;
+    direction: rtl;
+}
+
+td.rating-level {
+    text-align: left;
+}
+
+table td {
+    text-align: right;
+}
+
+.stars-outer {
+    transform: scale(-1, 1);
+}
+
+#reviews .rating-container,
+#reviews .rating-container .badge-wrapper {
+    float: right;
+}
+
+/* Mobile Sidenav */
+#mobile-view .user-view .account p {
+    text-align: left;
+}
+
+/* CATEGORY PAGE LAYOUT */
+.categ-sidebar-elm .multi-selection span {
+    padding-left: unset;
+    padding-right: 25px;
+}
+
+.categ-sidebar-elm .multi-selection span::before {
+    right: 0;
+    left: unset;
+}
+
+#categ-sidebar-price .price-wrapper .go-action {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+/* END OF CATEGORY PAGE LAYOUT */
+
+/* CART PAGE */
+.coupon-row img {
+    margin-left: 5px;
+    margin-right: unset;
+}
+
+/* END OF CART PAGE */
+
+/* CHECKOUT PAGE */
+html[dir="rtl"] .address-container .address-row .phone-number {
+    direction: ltr;
+}
+
+/* END OF CHECKOUT PAGE */

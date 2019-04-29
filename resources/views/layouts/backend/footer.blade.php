@@ -5,5 +5,5 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{ date("Y") }} <a href="#">E-Commerce</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; {{ date("Y") }} <a href="#">Qonaa</a>.</strong> All rights reserved.
 </footer>

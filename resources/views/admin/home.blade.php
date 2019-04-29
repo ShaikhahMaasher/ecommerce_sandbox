@@ -1,28 +1,21 @@
 @extends('layouts.backend.dashboard')
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content container-fluid">
-            <form action="/admin/test" method="post">
-                <input type="email" name="email" id="email">
-                <button type="submit">Submit</button>
-            </form>
-        </section>
-        <!-- /.content -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="dashboard-cta">
+        <a href="products/create" class="card">
+            <i class="fa fa-cubes"></i>
+            <span class="cta">
+                Add Product
+            </span>
+        </a>
+        <a href="products/create" class="card">
+            <i class="fa fa-plus"></i><span class="cta">Add Category</span>
+        </a>
+        <a class="card"><i class="fa fa-list"></i><span class="cta">View Orders</span></a>
+        <a class="card"><i class="fa fa-user"></i><span class="cta">Manage Users</span></a>
     </div>
-  <!-- /.content-wrapper -->
+</div>
+<!-- /.content-wrapper -->
 @endsection

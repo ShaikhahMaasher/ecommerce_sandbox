@@ -25,7 +25,7 @@ trait RedirectTrait
                 
             # User
             case 'customer':
-               $route = '/home';   // the user's route
+               $route = '/';   // the user's route
               break;
         
               default: break;

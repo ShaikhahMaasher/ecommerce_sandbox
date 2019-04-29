@@ -14,6 +14,8 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+
         <!-- Scripts -->
         <!-- Can use it with defer to load it later -->
         <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->

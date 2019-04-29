@@ -1,5 +1,6 @@
 @extends('layouts.backend.master')
 @section('head')
+    <link rel="stylesheet" href="{{ asset('css/admin-custom.css') }}" type="text/css">
     @yield('head')
 @endsection
 @section('body')

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'eCommerce Sandbox'),    
+    'name' => env('APP_NAME', 'Qonaa | قنة'),    
 
     /*
     |--------------------------------------------------------------------------

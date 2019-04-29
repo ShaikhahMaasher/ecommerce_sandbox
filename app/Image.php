@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Storage;
 
 class Image extends Model
 {
@@ -9,4 +10,7 @@ class Image extends Model
         return $this->morphTo();
     }
 
+    public function getImage($type, $path) {           
+        return Storage::disk('local')->url($type. '\\' . $path);
+    }
 }
